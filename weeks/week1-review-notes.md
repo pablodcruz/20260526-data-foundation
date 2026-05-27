@@ -1490,7 +1490,6 @@ class Employee(Person):
     def greet(self) -> str:
         return f"{super().greet()} and I work as {self._role}"
 
-
 emps = [
     Employee(1, "Ada", "Engineer"),
     Employee(2, "Alan", "Researcher")
@@ -1534,4 +1533,3 @@ for e in emps:
 
 * **Refactor a Script into Functions**
   Take a basic script and split it into reusable functions with type hints and docstrings. Practice modular code and cleaner design.
-
