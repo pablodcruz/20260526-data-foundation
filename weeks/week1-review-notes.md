@@ -972,7 +972,7 @@ print(nums)  # array('i', [10, 20, 30, 40])
 
 ---
 
-#### 🔹 3. **NumPy Arrays (optional)**
+#### 🔹 3. **NumPy Arrays**
 
 For scientific or vectorized math, use **NumPy**:
 
@@ -1169,6 +1169,9 @@ class BankAccount:
         self.__balance = balance  # "private" attribute
 
     def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit must be positive")
+
         self.__balance += amount
 
     def get_balance(self):
@@ -1290,7 +1293,7 @@ class Car:
 
 ---
 
-#### 🔹 Abstract Base Classes (advanced, probably ont in QC, but important for large codebases) (ABCs)
+#### 🔹 Abstract Base Classes aka ABCs (advanced, probably not in QC, but important for large codebases)
 
 Use the **`abc`** module to define abstract methods that **must** be implemented by subclasses.
 
@@ -1404,7 +1407,7 @@ class Boat(Vehicle):
     def move(self):
         return "Sailing ⛵"
 
-vehicles = [Car("Tesla"), Boat("Yamaha")]
+vehicles = [Car("Ford"), Boat("Yamaha")]
 
 for v in vehicles:
     print(f"{v.brand}: {v.move()}")
@@ -1413,7 +1416,7 @@ for v in vehicles:
 Output:
 
 ```
-Tesla: Driving 🚗
+Ford: Driving 🚗
 Yamaha: Sailing ⛵
 ```
 
@@ -1445,16 +1448,22 @@ r = range(3); assert list(r) == [0,1,2]
 ### flow_funcs.py
 
 ```python
+from array import array
+
 def grade(score: int) -> str:
     if score >= 90: return "A"
     if score >= 80: return "B"
-    if score >= 70: return "C"
-    return "D"
+    if score >= 70: return "C" return "D"
 
-title = lambda s: s.strip().title()  # example lambda
+title = lambda s: s.strip().title() # Example lambda.
 
-from array import array
-arr = array("i", [1,2,3])  # typed int array
+scores = array("i", [95, 82, 73, 60]) # Typed int array. "i" for integers.
+
+for score in scores:
+    print(score, grade(score))
+
+name = "   pablo de la cruz   "
+print(title(name))
 ```
 
 ### oop_basics.py
@@ -1462,22 +1471,67 @@ arr = array("i", [1,2,3])  # typed int array
 ```python
 class Person:
     def __init__(self, pid: int, name: str):
-        self.pid, self.name = pid, name
-    def greet(self) -> str: return f"Hi, I'm {self.name}"
+        # Encapsulation: internal data is stored inside the object
+        # In Python, _variable means "internal/private by convention"
+        self._pid = pid
+        self._name = name
 
+    # Abstraction: outside code can call greet() without knowing how the greeting is built internally
+    def greet(self) -> str:
+        return f"Hi, I'm {self._name}"
+
+# Inheritance: Employee reuses and extends Person
 class Employee(Person):
     def __init__(self, pid: int, name: str, role: str):
-        super().__init__(pid, name); self.role = role
-    def greet(self) -> str: return f"{super().greet()} and I work as {self.role}"
+        super().__init__(pid, name)
+        self._role = role
 
-emps = [Employee(1,"Ada","Engineer"), Employee(2,"Alan","Researcher")]
-for e in emps: print(e.greet())
+    # Polymorphism: Employee has its own version of greet()
+    def greet(self) -> str:
+        return f"{super().greet()} and I work as {self._role}"
+
+
+emps = [
+    Employee(1, "Ada", "Engineer"),
+    Employee(2, "Alan", "Researcher")
+]
+
+for e in emps:
+    # Abstraction
+    print(e.greet())
 ```
 
 ---
 
-## Stretch (optional)
+## Stretch Labs (optional)
 
-* Add a small iterator class (custom `__iter__`/`__next__`).
-* Use `array("f")` to store floats and compare memory footprint vs list.
-* Add a `Decimal` example for currency rounding.
+* **Build a Python CLI Profile App**
+  Ask the user for name, age, city, and goal, then print a formatted profile. Practice `input()`, casting, f-strings, and basic validation.
+
+* **Create a Grade Analyzer**
+  Store student scores, calculate letter grades, average, highest/lowest score, and pass count. Practice lists, dictionaries, loops, functions, and conditionals.
+
+* **Practice a Git Workflow**
+  Create a branch, add a Python file, commit with Conventional Commits, push to GitHub, open a PR, and merge it. Bonus: resolve a merge conflict with a partner.
+
+* **Build a Simple To-Do List**
+  Create a terminal app that can add, view, complete, and remove tasks. Practice `while` loops, lists, dictionaries, and functions.
+
+* **Create a Data Types Playground**
+  Write examples for `str`, `int`, `float`, `bool`, `None`, `list`, `tuple`, `set`, `dict`, `bytes`, `bytearray`, and `range`. Print each value and its `type()`.
+
+* **Build an Employee Directory with OOP**
+  Create `Person`, `Employee`, and `Manager` classes. Use constructors, inheritance, method overriding, and polymorphism.
+
+* **Create a Bank Account Class**
+  Add private-style balance data, `deposit()`, `withdraw()`, and `get_balance()`. Prevent negative deposits and overdrafts. Practice encapsulation and validation.
+
+* **Practice Iterators and Built-ins**
+  Demonstrate `iter()`, `next()`, `map()`, `filter()`, `enumerate()`, and `zip()` with small examples. Bonus: create a custom iterator.
+
+* **Write Mini Agile Artifacts**
+  Choose one Python app and write 3 user stories. Practice Agile planning and writing clear requirements.
+
+* **Refactor a Script into Functions**
+  Take a basic script and split it into reusable functions with type hints and docstrings. Practice modular code and cleaner design.
+
