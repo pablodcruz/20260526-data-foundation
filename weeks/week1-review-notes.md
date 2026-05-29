@@ -27,16 +27,48 @@ By the end of this week you will be able to:
   git clone <your-repo-url> data-foundations
   cd data-foundations
 
-  # virtual env
+  # Create a virtual environment
   python -m venv .venv
-  # Windows (PowerShell): .\.venv\Scripts\Activate.ps1
-  # Windows (Git Bash):   source .venv/Scripts/activate
-  # macOS/Linux:
-  source .venv/bin/activate
+  ```
 
+  Activate the virtual environment:
+
+  ```bash
+  # Windows PowerShell
+  .\.venv\Scripts\Activate.ps1
+
+  # Windows Git Bash
+  source .venv/Scripts/activate
+
+  # macOS/Linux
+  source .venv/bin/activate
+  ```
+
+  Install dependencies:
+
+  ```bash
   python -m pip install --upgrade pip
   pip install pandas
   ```
+
+  Create a `requirements.txt` file:
+
+  ```bash
+  pip freeze > requirements.txt
+  ```
+
+  Install dependencies from `requirements.txt`:
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+  Benefits of using a virtual environment:
+
+  * Isolates project dependencies.
+  * Avoids version conflicts between projects.
+  * Makes projects easier to reproduce on another machine.
+  * Lets different projects use different Python versions when needed.
 
 ---
 
