@@ -254,7 +254,3 @@ for f in ['avg_histogram.png','avg_by_grade.png','math_vs_science.png']:
 3. What visualization best shows distribution vs. relationship between two variables?
 
 ---
-
-## Delivery
-
-The new lab is in [labs/6-pandas-numpy-matplotlib-lab.md](labs/6-pandas-numpy-matplotlib-lab.md).  If you want, I can also create the `data/` and `output/` folders and write the sample CSV plus starter `analysis.py` file now.
