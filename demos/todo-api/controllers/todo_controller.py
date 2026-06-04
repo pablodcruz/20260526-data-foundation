@@ -61,3 +61,4 @@ def remove_todo(todo_id):
         return jsonify({"error": "Todo not found"}), 404
 
     return jsonify({"message": "Todo deleted"}), 200
+
