@@ -1,0 +1,11 @@
+first_name,last_name,email,country,signup_date,is_active,notes
+  Alice ,Smith,Alice.Smith@Example.com,usa,2024-01-10,True,First contact
+bob,JOHNSON,bob.johnson@example.com,Canada,01/15/2024,yes,Regular customer
+Carol,McDonald,carol.mcdonald@example,UK,2024-02-20,TRUE,Invalid email
+David,Lopez,david.lopez@example.com,Mexico,2024-03-05,false,Needs follow-up
+EVA,Nguyen,eva.nguyen@example.com,USA,03/12/2024,1,
+Frank,Lee, frank.lee@example.com ,Australia,2024-04-01,0,New account
+Grace,Patel,grace.patel@example.com,India,2024-05-09,Yes,VIP
+Hector,Cruz,hector.cruz@example.com,Brazil,09-05-2024,true,Whale account
+Ivan,Kovacs,ivan.kovacs@example.com,Hungary,2024-06-12,TRUE,
+Julia,Kim,julia.kim@example.com,South Korea,2024-07-20,Yes,Referral
