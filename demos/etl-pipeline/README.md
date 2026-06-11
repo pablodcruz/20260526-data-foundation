@@ -6,6 +6,7 @@ A simple ETL demo that reads fake customer data from a CSV file, cleans it, and 
 
 - `etl.py`: extract-transform-load pipeline
 - `database.py`: PostgreSQL connection and CRUD methods without SQLAlchemy
+- `dashboard.py`: Streamlit dashboard with Matplotlib charts
 - `config.py`: database connection configuration via environment variables
 - `data/fake_customers.csv`: sample fake customer dataset
 
@@ -46,6 +47,23 @@ export POSTGRES_PASSWORD=postgres
 
 ```bash
 python etl.py
+```
+
+5. Launch the dashboard:
+
+```bash
+streamlit run dashboard.py
+```
+
+The dashboard shows extract and transform metrics from the CSV even before Postgres
+is running. The Database tab connects to Postgres and previews loaded customers
+after the ETL pipeline has been run.
+
+If Streamlit reports `ModuleNotFoundError: No module named 'psycopg2'`, install
+the demo dependencies in the same Python environment used to launch Streamlit:
+
+```bash
+pip install -r requirements.txt
 ```
 
 ## Database schema
