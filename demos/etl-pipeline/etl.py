@@ -3,14 +3,6 @@ import re
 from datetime import datetime
 
 from config import PostgresConfig
-from database import (
-    clear_staging,
-    get_connection,
-    init_db,
-    insert_staging_customers,
-    list_customers,
-    promote_staging_to_customers,
-)
 
 INPUT_CSV = "data/fake_customers.csv"
 
@@ -43,11 +35,12 @@ def valid_email(email):
 
 
 def transform_row(row):
-    first_name = row.get("first_name", "").strip().title()
-    last_name = row.get("last_name", "").strip().title()
-    email = row.get("email", "").strip().lower()
-    country = row.get("country", "").strip().title() or None
-    notes = row.get("notes", "").strip() or None
+    # DictReader represents omitted trailing CSV columns as None.
+    first_name = (row.get("first_name") or "").strip().title()
+    last_name = (row.get("last_name") or "").strip().title()
+    email = (row.get("email") or "").strip().lower()
+    country = (row.get("country") or "").strip().title() or None
+    notes = (row.get("notes") or "").strip() or None
 
     if not first_name or not last_name or not email or not valid_email(email):
         return None
@@ -82,6 +75,15 @@ def transform_rows(rows):
 
 
 def load_rows(rows, config):
+    from database import (
+        clear_staging,
+        get_connection,
+        init_db,
+        insert_staging_customers,
+        list_customers,
+        promote_staging_to_customers,
+    )
+
     with get_connection(config) as connection:
         init_db(connection)
         insert_staging_customers(connection, rows)
