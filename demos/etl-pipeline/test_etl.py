@@ -6,6 +6,25 @@ from etl import extract_csv, transform_rows
 
 
 class EtlCsvTests(unittest.TestCase):
+    def test_utf8_csv_with_or_without_bom_cleans_the_same_customer(self):
+        csv_text = (
+            "first_name,last_name,email,country,signup_date,is_active,notes\r\n"
+            'Élodie,Díaz,elodie@example.test,España,2026-01-02,true,"Comma, preserved"\r\n'
+        )
+        for encoding in ("utf-8", "utf-8-sig"):
+            with self.subTest(encoding=encoding), TemporaryDirectory() as directory:
+                source = Path(directory) / "customers.csv"
+                source.write_bytes(csv_text.encode(encoding))
+                rows = extract_csv(source)
+                cleaned, rejected = transform_rows(rows)
+
+                self.assertEqual(rejected, [])
+                self.assertEqual(len(cleaned), 1)
+                self.assertEqual(cleaned[0]["first_name"], "Élodie")
+                self.assertEqual(cleaned[0]["last_name"], "Díaz")
+                self.assertEqual(cleaned[0]["country"], "España")
+                self.assertEqual(cleaned[0]["notes"], "Comma, preserved")
+
     def test_short_rows_do_not_abort_transform(self):
         with TemporaryDirectory() as directory:
             source = Path(directory) / "customers.csv"
